@@ -1,11 +1,6 @@
 package net.xeill.elpuig.restservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -27,17 +22,21 @@ public class Personaje implements Serializable {
     private String sprite;
     @Column(name = "categoria")
     private String categoria;
-
-    public Personaje(int id_personaje, int vida, int mana, String nombre, String sprite, String categoria) {
-        this.id_personaje = id_personaje;
-        this.vida = vida;
-        this.mana = mana;
-        this.nombre = nombre;
-        this.sprite = sprite;
-        this.categoria = categoria;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mazo")
+    private Mazo mazo;
 
     public Personaje() {
+    }
+
+    public Personaje(int id_personaje, String nombre, int vida, int mana, String sprite, String categoria, Mazo mazo) {
+        this.id_personaje = id_personaje;
+        this.nombre = nombre;
+        this.vida = vida;
+        this.mana = mana;
+        this.sprite = sprite;
+        this.categoria = categoria;
+        this.mazo = mazo;
     }
 
     public int getId_personaje() {
@@ -46,6 +45,14 @@ public class Personaje implements Serializable {
 
     public void setId_personaje(int id_personaje) {
         this.id_personaje = id_personaje;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getVida() {
@@ -64,14 +71,6 @@ public class Personaje implements Serializable {
         this.mana = mana;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getSprite() {
         return sprite;
     }
@@ -88,15 +87,24 @@ public class Personaje implements Serializable {
         this.categoria = categoria;
     }
 
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(Mazo mazo) {
+        this.mazo = mazo;
+    }
+
     @Override
     public String toString() {
         return "Personaje{" +
                 "id_personaje=" + id_personaje +
+                ", nombre='" + nombre + '\'' +
                 ", vida=" + vida +
                 ", mana=" + mana +
-                ", nombre='" + nombre + '\'' +
                 ", sprite='" + sprite + '\'' +
-                ", categoria='" + categoria + '\''+
+                ", categoria='" + categoria + '\'' +
+                ", mazo=" + mazo +
                 '}';
     }
 }

@@ -7,5 +7,4 @@ import net.xeill.elpuig.restservice.model.Personaje;
 
 @Repository
 public interface PersonajeRepository extends JpaRepository<Personaje, Integer> {
-
 }

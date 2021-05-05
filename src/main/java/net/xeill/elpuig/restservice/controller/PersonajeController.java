@@ -24,7 +24,6 @@ import net.xeill.elpuig.restservice.repository.PersonajeRepository;
 @RestController
 @CrossOrigin(origins = {"http://localhost:8080", "http://localhost" })
 @RequestMapping("/api")
-
 public class PersonajeController {
 
     @Autowired
@@ -36,8 +35,6 @@ public class PersonajeController {
     }
 
     @PostMapping("/personajes")
-    //public Note createNote(@Valid @RequestBody Note note) {
-    //https://stackoverflow.com/questions/51337489/content-type-multipart-form-databoundary-webkitformboundary-not-suppor
     public Personaje createPersonaje(@Valid @RequestBody Personaje personaje) {
         return personajeRepository.save(personaje);
     }
