@@ -23,6 +23,7 @@ public class Carta implements Serializable {
     @Column(name = "coste_mana")
     private int coste_mana;
 
+
     public Carta(int id_carta, String nombre, String descripcion, String imagen, Integer coste_mana) {
         this.id_carta = id_carta;
         this.nombre = nombre;

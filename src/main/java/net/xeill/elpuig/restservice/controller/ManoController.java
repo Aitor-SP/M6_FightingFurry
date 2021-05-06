@@ -1,19 +1,19 @@
 package net.xeill.elpuig.restservice.controller;
 
 import net.xeill.elpuig.restservice.exception.ResourceNotFoundException;
-import net.xeill.elpuig.restservice.model.Carta;
 import net.xeill.elpuig.restservice.model.Mano;
 import net.xeill.elpuig.restservice.repository.ManoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:8080", "http://localhost" })
 @RequestMapping("/api")
-public class ManoControler {
+public class ManoController {
 
     @Autowired
     ManoRepository manoRepository;
@@ -24,7 +24,7 @@ public class ManoControler {
     }
 
     @PostMapping("/manos")
-    public Mano createMarta(@Valid @RequestBody Mano mano) {
+    public Mano createMano(@Valid @RequestBody Mano mano) {
         return manoRepository.save(mano);
     }
 
@@ -36,15 +36,14 @@ public class ManoControler {
 
     @PutMapping("/manos/{id}")
     public Mano updateMano(@PathVariable(value = "id") Integer manoId,
-                             @Valid @RequestBody Mano manoDetails) {
+                                     @Valid @RequestBody Mano manoDetails) {
 
         Mano mano = manoRepository.findById(manoId)
-                .orElseThrow(() -> new ResourceNotFoundException("Carta", "id", manoId));
+                .orElseThrow(() -> new ResourceNotFoundException("Mano", "id", manoId));
 
-        mano.setNombre(manoDetails.getNombre());
-        mano.setDescripcion(manoDetails.getDescripcion());
-        mano.setImagen(manoDetails.getImagen());
-        mano.setCoste_mana(manoDetails.getCoste_mana());
+        mano.setId_mano(manoDetails.getId_mano());
+        mano.setPersonaje(manoDetails.getPersonaje());
+        mano.setCarta(manoDetails.getCarta());
 
         Mano updatedMano = manoRepository.save(mano);
         return updatedMano;

@@ -29,6 +29,7 @@ CREATE TABLE mazo
 
 CREATE TABLE mano
 (
+    id_mano integer PRIMARY KEY,
 	fk_personaje integer REFERENCES Personaje(id_personaje),
 	fk_carta integer REFERENCES Carta(id_carta)
 );
